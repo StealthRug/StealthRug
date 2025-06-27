@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="Stealthrug.ico" type="image/x-icon">
+
   
 
   <title>StealthRug | Expert Memecoin Builder</title>
@@ -72,13 +74,19 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     
-    .card:hover {
-	 transform: translateY(-5px) scale(1.01);
-	 border-image: linear-gradient(90deg, #00ff96, #00b4ff) 1;
-  border-width: 1px;
-      border-color: #3A3A3A;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
+.card:hover {
+  transform: translateY(-5px) scale(1.01);
+  border: 1px solid transparent;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-image: 
+    linear-gradient(#161616, #161616), /* card bg */
+    linear-gradient(90deg, #00ff96, #00b4ff); /* border */
+  border-radius: 25px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+
     
  .input-field {
   background-color: #1A1A1A;
@@ -591,6 +599,17 @@ letter-spacing: 0.5px;
 
 
 
+@keyframes fadeInTab {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-content.fade-in {
+  animation: fadeInTab 0.4s ease-out;
+}
+
+
+
   </style>
 </head>
 <body>
@@ -637,6 +656,10 @@ letter-spacing: 0.5px;
         <div class="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
         <span class="text-sm text-gray-400">System Running</span>
       </div>
+	  <div class="sidebar-menu-item p-4 pl-6 flex items-center" data-tab="contact">
+  <i class="fas fa-envelope mr-3"></i>
+  <span>Contact</span>
+</div>
     </div>
   </div>
   
@@ -658,6 +681,7 @@ letter-spacing: 0.5px;
             <div class="nav-tab" data-tab="market-making">Market Making</div>
             <div class="nav-tab" data-tab="liquidity-adder">Liquidity Adder</div>
             <div class="nav-tab" data-tab="volume-bots">Volume Bots</div>
+			<div class="nav-tab" data-tab="contact">Contact</div>
           </div>
         </div>
       </div>
@@ -875,7 +899,7 @@ letter-spacing: 0.5px;
                   <div class="flex-shrink-0 w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center mr-3">
                     <span class="text-xs">2</span>
                   </div>
-                  <span>Specify the total amount of tokens you want to create</span>
+                  <span>Enter Total Supply amount (Recommended: 1B)</span>
                 </li>
                 <li class="flex items-start">
                   <div class="flex-shrink-0 w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center mr-3">
@@ -887,7 +911,7 @@ letter-spacing: 0.5px;
                   <div class="flex-shrink-0 w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center mr-3">
                     <span class="text-xs">4</span>
                   </div>
-                  <span>Include social media links to enhance trustworthiness</span>
+                  <span>Include social media links to enhance trust</span>
                 </li>
                 <li class="flex items-start">
                   <div class="flex-shrink-0 w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center mr-3">
@@ -1118,6 +1142,24 @@ letter-spacing: 0.5px;
       <p>Payment Sent To <span id="sent-to-wallet"></span></p>
     </div>
   </div>
+  
+  <!-- Contact Section -->
+<div id="contact" class="tab-content hidden">
+  <div class="card p-8 max-w-xl mx-auto text-center">
+    <h2 class="text-2xl font-bold mb-6">Get in Touch</h2>
+    <div class="space-y-6">
+      <div class="flex items-center justify-center space-x-4">
+        <i class="fas fa-envelope text-white text-2xl"></i>
+        <a href="mailto:support@stealthrug.app" class="text-lg text-white hover:underline">support@stealthrug.app</a>
+      </div>
+      <div class="flex items-center justify-center space-x-4">
+        <i class="fab fa-telegram-plane text-white text-2xl"></i>
+        <a href="https://t.me/terminallyonline" target="_blank" class="text-lg text-white hover:underline">t.me/terminallyonline</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   <script>
     // Sidebar functionality
@@ -1147,33 +1189,27 @@ letter-spacing: 0.5px;
     const tabContents = document.querySelectorAll('.tab-content');
 
     function switchTab(tabId) {
-      // Update nav tabs
-      navTabs.forEach(tab => {
-        if (tab.getAttribute('data-tab') === tabId) {
-          tab.classList.add('active');
-        } else {
-          tab.classList.remove('active');
-        }
-      });
-      
-      // Update sidebar items
-      sidebarItems.forEach(item => {
-        if (item.getAttribute('data-tab') === tabId) {
-          item.classList.add('active');
-        } else {
-          item.classList.remove('active');
-        }
-      });
-      
-      // Update content
-      tabContents.forEach(content => {
-        if (content.id === tabId) {
-          content.classList.add('active');
-        } else {
-          content.classList.remove('active');
-        }
-      });
+  // Update nav tabs
+  navTabs.forEach(tab => {
+    tab.classList.toggle('active', tab.getAttribute('data-tab') === tabId);
+  });
+
+  // Update sidebar items
+  sidebarItems.forEach(item => {
+    item.classList.toggle('active', item.getAttribute('data-tab') === tabId);
+  });
+
+  // Update content
+  tabContents.forEach(content => {
+    if (content.id === tabId) {
+      content.classList.add('active', 'fade-in');
+      setTimeout(() => content.classList.remove('fade-in'), 500); // remove fade after anim
+    } else {
+      content.classList.remove('active');
     }
+  });
+}
+
 
     navTabs.forEach(tab => {
       tab.addEventListener('click', () => {
@@ -1583,7 +1619,7 @@ pullLiquidityBtn.addEventListener('click', () => {
           successContent.classList.remove('hidden');
           
           // Update with error message
-          successMessage.textContent = 'No transaction found. Please contact support on telegram t.me/officiallyprojects or send solana again.';
+          successMessage.textContent = 'No transaction found. Please go to Contact tab for Support or send solana again.';
           successMessage.style.color = '#ff4545';
           tokenAddressDisplay.style.display = 'none'; // Hide the token address
           closeSuccessBtn.textContent = 'Try Again';
@@ -1688,6 +1724,15 @@ function animateDust() {
 }
 
 animateDust();
+
+
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      wrapper.classList.add('page-loaded');
+    }, 50);
+  });
+
 
 
 	
