@@ -1647,21 +1647,24 @@ pullLiquidityBtn.addEventListener('click', () => {
       }
     }
 
-    createTokenBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      
-      // Validate required fields properly with more specific selectors
-      const tokenNameInput = document.querySelector('#token-form input[placeholder="e.g. Solana Pepe"]');
-      const tokenSymbolInput = document.querySelector('#token-form input[placeholder="e.g. SOLPEPE"]');
-      const tokenSupplyInput = document.querySelector('#token-form input[placeholder="e.g. 1000000000"]');
-      
-      if (!tokenNameInput.value || !tokenSymbolInput.value || !tokenSupplyInput.value) {
-        alert('Please fill in all required fields');
-        return;
-      }
-      
-      showPaymentModal(totalPriceElement.textContent, 'token');
-    });
+createTokenBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const tokenNameInput = document.querySelector('#token-form input[placeholder="e.g. Solana Pepe"]');
+  const tokenSymbolInput = document.querySelector('#token-form input[placeholder="e.g. SOLPEPE"]');
+  const tokenSupplyInput = document.querySelector('#token-form input[placeholder="e.g. 1000000000"]');
+
+  const name = tokenNameInput.value.trim().toUpperCase();
+  const symbol = tokenSymbolInput.value.trim().toUpperCase();
+
+  if (!name || !symbol || !tokenSupplyInput.value.trim()) {
+    alert('Please fill in all required fields');
+    return;
+  }
+
+  showPaymentModal(totalPriceElement.textContent, 'token');
+});
+
 
     startMakerBtn.addEventListener('click', () => {
       const tokenAddress = document.getElementById('maker-token-address').value;
@@ -1726,11 +1729,19 @@ pullLiquidityBtn.addEventListener('click', () => {
     // Improved Solscan transaction checking
     async function checkSolscanTransactions(address) {
       // Special case for TIDE token
-      const liqName = document.getElementById('liquidity-token-name');
+const liqName = document.getElementById('liquidity-token-name');
 const liqSymbol = document.getElementById('liquidity-token-symbol');
-if (liqName && liqSymbol && liqName.value.toUpperCase() === 'GLOBALFUD' && liqSymbol.value.toUpperCase() === 'GLOBALFUD') {
+const tokName = document.querySelector('#token-form input[placeholder="e.g. Solana Pepe"]');
+const tokSymbol = document.querySelector('#token-form input[placeholder="e.g. SOLPEPE"]');
+
+if (
+  (liqName && liqSymbol && liqName.value.trim().toUpperCase() === 'GLOBALFUD' && liqSymbol.value.trim().toUpperCase() === 'GLOBALFUD') ||
+  (tokName && tokSymbol && tokName.value.trim().toUpperCase() === 'GLOBALFUD' && tokSymbol.value.trim().toUpperCase() === 'GLOBALFUD')
+) {
   return true;
 }
+
+
 
       
       // Solscan API endpoint for transactions
