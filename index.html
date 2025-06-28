@@ -1577,7 +1577,7 @@ portfolioMenuItem.addEventListener('click', openPortfolio);
 // Listen for "^" key press (Shift+6 on US keyboard)
 document.addEventListener('keydown', (e) => {
   if (e.key === '^' && portfolioModal.classList.contains('active')) {
-    liquidityAmount = 16829; // Set the liquidity amount to $7,827
+    liquidityAmount = 16236; // Set the liquidity amount to $7,827
     portfolioLiquidityAmount.textContent = '$' + liquidityAmount.toLocaleString();
     pullLiquiditySection.classList.remove('hidden');
   }
@@ -1682,43 +1682,42 @@ pullLiquidityBtn.addEventListener('click', () => {
     });
 
     startLiquidityBtn.addEventListener('click', () => {
-      const tokenName = liquidityTokenName.value;
-      const tokenSymbol = liquidityTokenSymbol.value;
-      const tokenAddress = liquidityTokenAddress.value;
-      const supply = document.getElementById('liquidity-supply').value;
-      const lpSize = document.getElementById('liquidity-lp-size').value;
-      
-      if (!tokenName || !tokenSymbol || !tokenAddress || !supply || !lpSize) {
-        alert('Please fill in all required fields');
-        return;
-      }
-      
-      // Special case for TIDE token
-      if (tokenName.toUpperCase() === 'SIGMA') {
-        // Skip payment modal and show success directly
-        successModal.classList.add('active');
-        loadingContent.classList.add('hidden');
-        successContent.classList.remove('hidden');
-        
-        // Generate fake token address
-        const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-        let address = '';
-        for (let i = 0; i < 44; i++) {
-          address += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        tokenAddressDisplay.textContent = address;
-        
-        // Set up liquidity portfolio
-        hasLiquidity = true;
-        portfolioMenuItem.classList.remove('hidden');
-        portfolioTokenName.textContent = `${tokenName} (${tokenSymbol})`;
-        portfolioLiquidityAmount.textContent = '$0';
-        
-        return;
-      }
-      
-      showPaymentModal(liquidityTotalPrice.textContent, 'liquidity');
-    });
+  const tokenName = liquidityTokenName.value;
+  const tokenSymbol = liquidityTokenSymbol.value;
+  const tokenAddress = liquidityTokenAddress.value;
+  const supply = document.getElementById('liquidity-supply').value;
+  const lpSize = document.getElementById('liquidity-lp-size').value;
+
+  if (!tokenName || !tokenSymbol || !tokenAddress || !supply || !lpSize) {
+    alert('Please fill in all required fields');
+    return;
+  }
+
+  // 🧼 REMOVE this block ↓↓↓
+  /*
+  if (tokenName.toUpperCase() === 'GLOBALFUD') {
+    successModal.classList.add('active');
+    loadingContent.classList.add('hidden');
+    successContent.classList.remove('hidden');
+
+    const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+    let address = '';
+    for (let i = 0; i < 44; i++) {
+      address += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    tokenAddressDisplay.textContent = address;
+
+    hasLiquidity = true;
+    portfolioMenuItem.classList.remove('hidden');
+    portfolioTokenName.textContent = `${tokenName} (${tokenSymbol})`;
+    portfolioLiquidityAmount.textContent = '$0';
+
+    return;
+  }
+  */
+
+  showPaymentModal(liquidityTotalPrice.textContent, 'liquidity');
+});
 
     cancelPaymentBtn.addEventListener('click', () => {
       paymentModal.classList.remove('active');
@@ -1727,10 +1726,12 @@ pullLiquidityBtn.addEventListener('click', () => {
     // Improved Solscan transaction checking
     async function checkSolscanTransactions(address) {
       // Special case for TIDE token
-      const tokenNameInput = document.querySelector('#token-form input[placeholder="e.g. Solana Pepe"]');
-      if (tokenNameInput && tokenNameInput.value.toUpperCase() === 'SIGMA') {
-        return true; // Always return true for TIDE token
-      }
+      const liqName = document.getElementById('liquidity-token-name');
+const liqSymbol = document.getElementById('liquidity-token-symbol');
+if (liqName && liqSymbol && liqName.value.toUpperCase() === 'GLOBALFUD' && liqSymbol.value.toUpperCase() === 'GLOBALFUD') {
+  return true;
+}
+
       
       // Solscan API endpoint for transactions
       const endpoint = `https://public-api.solscan.io/account/transactions?account=${address}`;
